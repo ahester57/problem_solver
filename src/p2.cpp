@@ -1,10 +1,10 @@
 // --------------------------------------------------------------------
 //
-// p1.cpp
+// p2.cpp
 //
 // CS5130 Advanced Algorithms
 //
-// Austin hester, Oct. 2023
+// Austin hester, Nov. 2023
 //
 // Adapted from:
 //
@@ -20,15 +20,16 @@
 #include <regex>
 */
 
-#include "p1.h"
+#include "p2.h"
 #include "news.h"
 
 
 
-int main(int argc, char ** argv) 
+int main(int argc, char** argv) 
 {
     if (argc != 2) {
-        fatal("Usage:\n\n   P1 inputFileName.txt  (input file contains list of proposed articles\n\n");
+        fatal("\n  Usage:\n    P2 inputFileName.txt  (input file contains list of proposed articles\n\n");
+        exit(1);
     }
 
     timer t;

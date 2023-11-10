@@ -1,16 +1,19 @@
-# Makefile for P1
+# Makefile for P2
 # Austin Hester
 
 # Repo directories
 INCDIR=src
 SRCDIR=src
 OBJDIR=obj
-TARGET  = P1
+TARGET  = P2
 TARGETDIR=bin
+
+# Libraries
+LIBS=-lstdc++
 
 # Compiler options
 CC=g++
-CFLAGS=-g -Wall -std=c++11 -lstdc++
+CFLAGS=-g -Wall -std=c++11 $(LIBS)
 CFLAGS+= -I $(INCDIR)
 CFLAGS+= $(OPENCV_CFLAGS)
 #DEPS = $(wildcard $(INCDIR)/*.hpp)
@@ -39,6 +42,6 @@ clean:
 	$(RM) $(OBJECTS) $(wildcard $(INCDIR)/*.gch)
 
 destroy:
-	$(RM) $(OBJECTS) P1 P1.exe $(wildcard $(INCDIR)/*.gch)
+	$(RM) $(OBJECTS) P2 P2.exe $(wildcard $(INCDIR)/*.gch)
 
 # https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/

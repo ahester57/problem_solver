@@ -5,11 +5,21 @@ First, I set up a better programming environment than the command line. Vim is c
 
 ### Data Structure
 
+How was the data structure improved?
+
 
 ### Algorithm
 
+How was the algorithm improved?
+
 
 ### Aggregate Analysis
+
+#### Time Complexity
+
+What is the time complexity?
+
+#### Space Complexity
 
 
 ----

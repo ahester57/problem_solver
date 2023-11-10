@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------
 //
-// p1.h
+// p2.h
 //
 // CS5130 Advanced Algorithms
 //
@@ -10,8 +10,8 @@
 
 
 
-#ifndef HELLO_H
-#define HELLO_H
+#ifndef P2_H
+#define P2_H
 
 
 #include <stdlib.h>
