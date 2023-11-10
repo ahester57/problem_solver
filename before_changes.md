@@ -1,8 +1,8 @@
-## Results
+# Results
 
-### Example 11
+## Example 11
 
-#### Results from 11
+### Results from 11
 
 ```bash
 :~/algorithms/p2$ ./P1 examples/ex11.txt
@@ -47,9 +47,9 @@ Computation Time: 0 hours, 2 minutes, 23 seconds.
 Output successfully to examples/ex11.out
 ```
 
-### Example 12
+## Example 12
 
-#### Results from 12
+### Results from 12
 
 ```bash
 :~/algorithms/p2$ ./P1 examples/ex12.txt
@@ -97,9 +97,9 @@ Computation Time: 0 hours, 5 minutes, 12 seconds.
 Output successfully to examples/ex12.out
 ```
 
-### Example 13
+## Example 13
 
-#### Results from 13
+### Results from 13
 
 ```bash
 :~/algorithms/p2$ ./P1 examples/ex13.txt

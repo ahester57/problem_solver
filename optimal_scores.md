@@ -1,5 +1,7 @@
 
-## Optimal Scores
+# Optimal Scores
+
+For checking the correctness of the algorithm.
 
 | File | Score|
 | ----: | ----: |
