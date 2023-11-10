@@ -1,0 +1,10 @@
+7 articles and 3 reporters
+12000 clicks or more required
+Article	Type		Reporter	Cost		Clicks
+A1		L		1		120		3200
+A2		S		1		595		8500
+A3		G		2		133		2800
+A4		G		2		159		1100
+A5		G		2		330		2300
+A6		E		2		85		4000
+A7		E		3		80		900
