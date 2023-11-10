@@ -12,6 +12,12 @@ How was the data structure improved?
 
 How was the algorithm improved?
 
+## Architecture
+
+In addition to time and space complexity improvements, I have also improved the code's structure in a few ways.
+
+* Split source and headers into `src/` and `/include`, respectively.
+* `TODO:` Add a testing suite
 
 ## Aggregate Analysis
 

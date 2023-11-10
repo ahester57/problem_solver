@@ -2,20 +2,22 @@
 # Austin Hester
 
 # Repo directories
-INCDIR=src
+INCDIR=inc
 SRCDIR=src
 OBJDIR=obj
-TARGET  = P2
 TARGETDIR=bin
 
 # Libraries
 LIBS=-lstdc++
 
+# Target
+TARGET=P2
+
 # Compiler options
 CC=g++
-CFLAGS=-g -Wall -std=c++11 $(LIBS)
+CFLAGS=-g -Wall -std=c++11
 CFLAGS+= -I $(INCDIR)
-CFLAGS+= $(OPENCV_CFLAGS)
+CFLAGS+= $(LIBS)
 #DEPS = $(wildcard $(INCDIR)/*.hpp)
 SOURCES= $(wildcard $(SRCDIR)/*.cpp)
 OBJECTS = $(patsubst $(SRCDIR)/%.cpp, %.o, $(SOURCES))
@@ -32,7 +34,7 @@ all: $(TARGET)
 
 #TODO put objects in OBJDIR
 $(OBJECTS): $(SOURCES)
-	${CC} -c $^
+	${CC} -c $^ -I $(INCDIR)
 
 #TODO put executable in $(TARGETDIR)
 $(TARGET): $(OBJECTS)
