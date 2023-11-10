@@ -18,7 +18,9 @@ In addition to time and space complexity improvements, I have also improved the 
 
 * Split source and headers into `src/` and `/inc`, respectively.
 * Create new source file `process_news.cpp` which handles the file parsing.
-* `TODO:` Add a testing suite
+* Add a testing suite to aid in developing improvements.
+
+----
 
 ## Aggregate Analysis
 

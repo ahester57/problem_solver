@@ -24,10 +24,10 @@
 #include "news.h"
 
 
-/* scoreSolution(&ps, np);
+/* process_file(inputFileName, news*);
  *
- * Input: A plausible solution and a news program to score against.
- * Output: The cost associated with the given solution.
+ * Input: An input filename and a news program to build.
+ * Output: The number of actual rows loaded.
  */
 int process_file(const char* inputFileName, NewsProgram* news);
 

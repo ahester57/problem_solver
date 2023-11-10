@@ -23,20 +23,24 @@
 #include "p2.h"
 #include "process_news.h"
 #include "news.h"
-
+#include "test.h"
 
 
 int main(int argc, char** argv) 
 {
     if (argc != 2) {
-        fatal("\n  Usage:\n    P2 inputFileName.txt  (input file contains list of proposed articles\n\n");
+        fatal("\n  Usage:\n    P2 inputFileName.txt | --test  (input file contains list of proposed articles\n\n");
         exit(1);
+    }
+
+    const char* inputFileName = argv[1];
+
+    if (strcmp(inputFileName, "--test") == 0) {
+        exit(start_test());
     }
 
     timer t;
     t.start("Timer started.");
-
-    const char* inputFileName = argv[1];  
 
     // new code added here
     char outputFileName[STRING_LENGTH];

@@ -18,6 +18,7 @@ int process_file(const char* inputFileName, NewsProgram* news)
 
     // read in names and print messages
     if ((inputFile = fopen(inputFileName, "r")) == NULL) {
+        std::cerr << "For inputFileName='" << inputFileName << "'" << std::endl;
         fatal("Unable to open input file.");
     }
 
