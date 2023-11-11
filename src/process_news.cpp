@@ -8,10 +8,17 @@
 //
 // --------------------------------------------------------------------------
 
+#include <cmath>
+#include <limits.h>
 
 #include "process_news.h"
 
 
+/* process_file(inputFileName, news*);
+ *
+ * Input: An input filename and a news program to build.
+ * Output: The number of actual rows loaded.
+ */
 int process_file(const char* inputFileName, NewsProgram* news)
 {
     FILE* inputFile;
@@ -139,4 +146,56 @@ int process_file(const char* inputFileName, NewsProgram* news)
     fclose(inputFile);
 
     return actualArticleCount;
+}
+
+/* explore_solution_space(news, plausible solution*);
+ *
+ * Input: An initialized news plan and a dummy solution.
+ * Output: Modifies incumbent to optimal while returning whether any feasible solution was found.
+ */
+bool explore_solution_space(const NewsProgram news, PlausibleSolution* incumbent)
+{
+    // Generate and score all possible solutions
+    long numPossibilities = pow(2, news.numArticles);
+    bool anyFeasibleFound = false;
+    for (long i = 0; i < numPossibilities; i++) {
+
+        // Create a bitset to represent our choices
+        PlausibleSolution soln = {};
+        soln.solution = std::bitset<BIT_LENGTH>(i);
+
+        // Score the solution against the proposed articles
+        scoreSolution(&soln, news);
+
+        if (VERBOSE) {
+            std::cout << "----" << std::endl;
+            std::cout << soln.solution << std::endl;
+            std::cout << "Score:\t\t" << soln.score << std::endl;
+            std::cout << "Clicks:\t\t" << soln.totalClicks << std::endl;
+        }
+
+        // Skip if worse than incumbent
+        if (soln.score > incumbent->score) {
+            continue;
+        }
+        // Past that, so we are better than the incumbent
+
+        // Check feasibility now
+        checkFeasible(&soln, news);
+
+        if (VERBOSE) {
+            std::cout << "Feasible:\t" << soln.isFeasible << std::endl;
+        }
+
+        if (soln.isFeasible) {
+            // At this point, we can update the current to the next incumbent
+            anyFeasibleFound = true;
+            incumbent->solution = soln.solution;
+            incumbent->score = soln.score;
+            incumbent->totalClicks = soln.totalClicks;
+            incumbent->typeCounts = soln.typeCounts;
+            incumbent->reporterCounts = soln.reporterCounts;
+        }
+    }
+    return anyFeasibleFound;
 }

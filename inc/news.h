@@ -57,7 +57,7 @@ struct PlausibleSolution {
  * Input: A plausible solution and a news program to score against.
  * Output: The cost associated with the given solution.
  */
-void scoreSolution(PlausibleSolution* ps, NewsProgram np);
+void scoreSolution(PlausibleSolution* ps, const NewsProgram np);
 
 
 /* checkFeasible(&ps, np);
@@ -65,10 +65,10 @@ void scoreSolution(PlausibleSolution* ps, NewsProgram np);
  * Input: A plausible solution and a news program to score against.
  * Output: The feasibility of the given solution.
  */
-void checkFeasible(PlausibleSolution* ps, NewsProgram np);
+void checkFeasible(PlausibleSolution* ps, const NewsProgram np);
 
 
-void cleanupNews(NewsProgram* np, int numArticles);
+void cleanupNews(NewsProgram* np, const int numArticles);
 
 
 #endif

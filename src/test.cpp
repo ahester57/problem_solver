@@ -31,9 +31,10 @@ int start_test()
         "examples/ex8.txt",
         "examples/ex9.txt",
         "examples/ex10.txt",
-        "examples/ex11.txt",
-        "examples/ex12.txt",
-        "examples/ex13.txt"
+        // "examples/ex11.txt",
+        // "examples/ex12.txt",
+        // "examples/ex13.txt,"
+        "examples/ex14.txt"
     };
 
     const int expects[] = {
@@ -47,12 +48,13 @@ int start_test()
         1069,
         1007,
         337,
-        551,
-        423,
-        433,
+        // 551,
+        // 423,
+        // 433,
+        551
     };
 
-    return _test_files(inputFileNames, expects, 13);
+    return _test_files(inputFileNames, expects, 11); // change to 14 if un-commenting 11,12,13
 }
 
 

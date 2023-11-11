@@ -13,9 +13,6 @@
 // ---------------------------------------------------------------------
 
 #include <bitset>
-#include <cmath>
-#include <limits.h>
-// #include <map>
 /* Re-enable once Clark upgrades to gcc >= 4.9.0
 #include <regex>
 */
@@ -90,47 +87,8 @@ int main(int argc, char** argv)
     }
 
     // Generate and score all possible solutions
-    PlausibleSolution incumbent = {0, INT_MAX};
-    long numPossibilities = pow(2, news.numArticles);
-    for (long i = 0; i < numPossibilities; i++) {
-
-        // Create a bitset to represent our choices
-        PlausibleSolution soln = {};
-        soln.solution = std::bitset<BIT_LENGTH>(i);
-
-        // Score the solution against the proposed articles
-        scoreSolution(&soln, news);
-
-        if (VERBOSE) {
-            std::cout << "----" << std::endl;
-            std::cout << soln.solution << std::endl;
-            std::cout << "Score:\t\t" << soln.score << std::endl;
-            std::cout << "Clicks:\t\t" << soln.totalClicks << std::endl;
-        }
-
-        // Skip if worse than incumbent
-        if (soln.score > incumbent.score) {
-            continue;
-        }
-        // Past that, so we are better than the incumbent
-
-        // Check feasibility now
-        checkFeasible(&soln, news);
-
-        if (VERBOSE) {
-            std::cout << "Feasible:\t" << soln.isFeasible << std::endl;
-        }
-
-        if (soln.isFeasible) {
-            // At this point, we can update the current to the next incumbent
-            incumbent.solution = soln.solution;
-            incumbent.score = soln.score;
-            incumbent.totalClicks = soln.totalClicks;
-            incumbent.typeCounts = soln.typeCounts;
-            incumbent.reporterCounts = soln.reporterCounts;
-        }
-    }
-
+    PlausibleSolution incumbent = PlausibleSolution();
+    explore_solution_space(news, &incumbent);
 
     // Stop time
     t.stop("\nTimer stopped.");

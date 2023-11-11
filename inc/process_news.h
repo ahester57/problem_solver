@@ -31,5 +31,11 @@
  */
 int process_file(const char* inputFileName, NewsProgram* news);
 
+/* explore_solution_space(news, plausible solution*);
+ *
+ * Input: An initialized news plan and a dummy solution.
+ * Output: Modifies incumbent to optimal while returning whether any feasible solution was found.
+ */
+bool explore_solution_space(const NewsProgram news, PlausibleSolution* incumbent);
 
 #endif

@@ -18,3 +18,4 @@ For checking the correctness of the algorithm.
 | ex11 |  551 |
 | ex12 |  423 |
 | ex13 |  433 |
+| ex14 |  551 |
