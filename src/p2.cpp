@@ -26,7 +26,7 @@
 int main(int argc, char** argv) 
 {
     if (argc != 2) {
-        fatal("\n  Usage:\n    P2 inputFileName.txt | --test  (input file contains list of proposed articles\n\n");
+        fatal("\n  Usage:\n    P2 inputFileName.txt | --test  (input file contains list of proposed articles)\n\n");
         exit(1);
     }
 
@@ -88,7 +88,7 @@ int main(int argc, char** argv)
 
     // Generate and score all possible solutions
     PlausibleSolution incumbent = PlausibleSolution();
-    explore_solution_space(news, &incumbent);
+    bool anyFeasibleFound = explore_solution_space(news, &incumbent);
 
     // Stop time
     t.stop("\nTimer stopped.");
@@ -106,28 +106,33 @@ int main(int argc, char** argv)
 
     if (!QUIET) {
         // Print output
-        std::cout << "----" << std::endl << "Incumbent Solution:\t" << incumbent.solution;
-        std::cout << std::endl << "----" << std::endl;
-        std::cout << "Article\tType\tReporter\tCost\tClicks" << std::endl;
-        // Loop over our articles
-        for (int i = 0; i < news.numArticles; i++) {
-            if (incumbent.solution.test(i)) {
-                Article* a = news.articles[i];
-                printf("%s\t%s\t%d\t\t%d\t%d\n", a->id.c_str(), a->type.c_str(), a->reporter, a->cost, a->clicks);
+        if (anyFeasibleFound) {
+            std::cout << "----" << std::endl << "Incumbent Solution:\t" << incumbent.solution;
+            std::cout << std::endl << "----" << std::endl;
+            std::cout << "Article\tType\tReporter\tCost\tClicks" << std::endl;
+            // Loop over our articles
+            for (int i = 0; i < news.numArticles; i++) {
+                if (incumbent.solution.test(i)) {
+                    Article* a = news.articles[i];
+                    printf("%s\t%s\t%d\t\t%d\t%d\n", a->id.c_str(), a->type.c_str(), a->reporter, a->cost, a->clicks);
+                }
             }
-        }
-        std::cout << "Total Cost:\t\t" << incumbent.score << std::endl;
-        std::cout << "Total Clicks:\t\t" << incumbent.totalClicks << std::endl;
+            std::cout << "Total Cost:\t\t" << incumbent.score << std::endl;
+            std::cout << "Total Clicks:\t\t" << incumbent.totalClicks << std::endl;
 
-        std::cout << "Type Counts:" << std::endl;
-        std::cout << "\tGlobal:\t\t" << incumbent.typeCounts["G"] << std::endl;
-        std::cout << "\tLocal:\t\t" << incumbent.typeCounts["L"] << std::endl;
-        std::cout << "\tScience:\t" << incumbent.typeCounts["S"] << std::endl;
-        std::cout << "\tEntertainment:\t" << incumbent.typeCounts["E"] << std::endl;
+            std::cout << "Type Counts:" << std::endl;
+            std::cout << "\tGlobal:\t\t" << incumbent.typeCounts["G"] << std::endl;
+            std::cout << "\tLocal:\t\t" << incumbent.typeCounts["L"] << std::endl;
+            std::cout << "\tScience:\t" << incumbent.typeCounts["S"] << std::endl;
+            std::cout << "\tEntertainment:\t" << incumbent.typeCounts["E"] << std::endl;
 
-        std::cout << "Reporter Counts:" << std::endl;
-        for (int i = 1; i <= news.numReporters; i++) {
-            std::cout << "\t\t" << i << ":\t" << incumbent.reporterCounts[i] << std::endl;
+            std::cout << "Reporter Counts:" << std::endl;
+            for (int i = 1; i <= news.numReporters; i++) {
+                std::cout << "\t\t" << i << ":\t" << incumbent.reporterCounts[i] << std::endl;
+            }
+        } else {
+            std::cout << "----" << std::endl << "No Feasible Solution Found";
+            std::cout << std::endl << "----" << std::endl;
         }
         std::cout << "Computation Time: " << hour << " hours, " << min << " minutes, " << seconds << " seconds.\n" << std::endl;
     }

@@ -156,6 +156,7 @@ int process_file(const char* inputFileName, NewsProgram* news)
 bool explore_solution_space(const NewsProgram news, PlausibleSolution* incumbent)
 {
     // Generate and score all possible solutions
+    incumbent->score = INT_MAX;
     long numPossibilities = pow(2, news.numArticles);
     bool anyFeasibleFound = false;
     for (long i = 0; i < numPossibilities; i++) {

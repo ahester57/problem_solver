@@ -71,18 +71,42 @@ int _test_files(const char** inputFileNames, const int* expects, const int numTe
     // Disable standard-out. (https://stackoverflow.com/a/30185095)
     std::cout.setstate(std::ios_base::failbit);
 
-    bool overall_truth = 0;
+    bool any_failed = false;
     for (int i = 0; i < numTestFiles; i++) {
         NewsProgram news = NewsProgram();
+        // Parsing the file
         int actualArticleCount = process_file(inputFileNames[i], &news);
-        cleanupNews(&news, actualArticleCount);
-        bool this_truth = actualArticleCount == news.numArticles;
-        if (!this_truth) {
+        if (actualArticleCount != news.numArticles) {
             std::cerr << __FUNCTION__ << " failed on line " << __LINE__
                         << ": actualArticleCount == news.numArticles failed" << std::endl
                         << "\tFor inputFileName='" << inputFileNames[i] << "'" << std::endl;
+            any_failed = true;
+            cleanupNews(&news, actualArticleCount);
+            continue;
         }
-        // TODO scoring
+        // Finding a solution
+        PlausibleSolution incumbent = PlausibleSolution();
+        bool anyFeasibleFound = explore_solution_space(news, &incumbent);
+        if (!anyFeasibleFound) {
+            std::cerr << __FUNCTION__ << " failed on line " << __LINE__
+                        << ": Finding Feasible Solution Failed" << std::endl
+                        << "\tFor inputFileName='" << inputFileNames[i] << "'" << std::endl;
+            any_failed = true;
+            cleanupNews(&news, actualArticleCount);
+            continue;
+        }
+        // Check against expected scores
+        if (expects[i] != incumbent.score) {
+            std::cerr << __FUNCTION__ << " failed on line " << __LINE__
+                        << ": actualArticleCount == news.numArticles failed" << std::endl
+                        << "\tFor inputFileName='" << inputFileNames[i] << "'" << std::endl;
+            any_failed = true;
+            cleanupNews(&news, actualArticleCount);
+            continue;
+        }
+        std::cerr << "\tinputFileName='" << inputFileNames[i] << "' PASSED" << std::endl
+                        << "\t\tExpected " << expects[i] << " to equal " << incumbent.score << std::endl;
+        cleanupNews(&news, actualArticleCount);
     }
 
     // Re-enable standard-out.
@@ -104,5 +128,5 @@ int _test_files(const char** inputFileNames, const int* expects, const int numTe
 
     std::cout << "Computation Time: " << hour << " hours, " << min << " minutes, " << seconds << " seconds.\n" << std::endl;
 
-    return overall_truth;
+    return any_failed;
 }
