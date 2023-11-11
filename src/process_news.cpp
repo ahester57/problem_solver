@@ -56,7 +56,7 @@ int process_file(const char* inputFileName, NewsProgram* news)
         */
         if (lineCount == 1) { // hard-coding since Clark does not support regex
             // Header
-            printf("Processing Header\n");
+            std::cout << "Processing Header" << std::endl;
             //for (auto v : match) std::cout << v << "," << std::endl;
 
             sscanf(tempStrng, "%d articles and %d reporters\n", &news->numArticles, &news->numReporters);
@@ -79,7 +79,7 @@ int process_file(const char* inputFileName, NewsProgram* news)
         */
         } else if (lineCount == 2) {
             // Required clicks
-            printf("Processing Required Clicks\n");
+            std::cout << "Processing Required Clicks" << std::endl;
 
             sscanf(tempStrng, "%d clicks or more required\n", &news->minClicks);
 

@@ -12,12 +12,6 @@
 #include "test.h"
 
 
-// #define below from: https://stackoverflow.com/a/52314467
-// If parameter is not true, test fails
-// This check function would be provided by the test framework
-#define IS_TRUE(x) { if (!(x)) std::cout << __FUNCTION__ << " failed on line " << __LINE__ << std::endl; }
-
-
 /* start_test();
  *
  * Displays Test Report on screen.
@@ -72,15 +66,25 @@ int _test_files(const char** inputFileNames, const int* expects, const int numTe
     timer t;
     t.start("Timer started.");
 
+    // Disable standard-out. (https://stackoverflow.com/a/30185095)
+    std::cout.setstate(std::ios_base::failbit);
+
     bool overall_truth = 0;
     for (int i = 0; i < numTestFiles; i++) {
         NewsProgram news = NewsProgram();
         int actualArticleCount = process_file(inputFileNames[i], &news);
         cleanupNews(&news, actualArticleCount);
         bool this_truth = actualArticleCount == news.numArticles;
-        IS_TRUE(this_truth);
+        if (!this_truth) {
+            std::cerr << __FUNCTION__ << " failed on line " << __LINE__
+                        << ": actualArticleCount == news.numArticles failed" << std::endl
+                        << "\tFor inputFileName='" << inputFileNames[i] << "'" << std::endl;
+        }
         // TODO scoring
     }
+
+    // Re-enable standard-out.
+    std::cout.clear();
 
     // Stop time
     t.stop("\nTimer stopped.");
